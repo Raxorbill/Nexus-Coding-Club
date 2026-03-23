@@ -362,12 +362,12 @@ export default function App() {
               { 
                 name: 'Osrat Nower Tasnia', 
                 role: 'Founder & President',
-                bio: 'Passionate programmer and community builder. Founded Nexus Coding Club in 2026 with a vision to unite programming enthusiasts and inspire the next generation of coders.'
+                bio: 'Passionate programmer and community builder. President of Nexus Coding Club. Leads day-to-day operations, coordinates events, and manages member engagement.'
               },
               { 
                 name: 'S M Tanjimul Hoque Tajim', 
                 role: 'Co-Founder & VP',
-                bio: 'Tech enthusiast and competitive programmer. Co-founded Nexus and leads training programs, workshops, and contest preparation for all members.'
+                bio: 'Tech enthusiast and competitive programmer. Established the club’s foundation, vision, and strategy, and oversees its programs, workshops, and contests.'
               }
             ].map((leader, i) => (
               <div key={i} className="glass p-8 rounded-3xl border-white/5 text-center relative overflow-hidden group">
@@ -526,7 +526,14 @@ export default function App() {
       <footer className="py-20 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col items-center text-center mb-16">
-            <div className="w-16 h-16 bg-nexus-indigo rounded-2xl flex items-center justify-center text-white font-bold font-mono text-2xl mb-8 shadow-[0_0_30px_rgba(99,102,241,0.3)]">NXS</div>
+            <div className="w-16 h-16 rounded-2xl overflow-hidden flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(99,102,241,0.3)]">
+              <img 
+                src="/logo.png" 
+                alt="Nexus Logo" 
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </div>
             <p className="text-2xl md:text-3xl font-bold max-w-3xl mb-4 italic">
               "The best code is not written by those who know the most — it's written by those who never stop learning and never stop trying."
             </p>
@@ -535,7 +542,14 @@ export default function App() {
 
           <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-nexus-indigo rounded flex items-center justify-center text-white font-bold font-mono text-xs">NXS</div>
+              <div className="w-8 h-8 rounded overflow-hidden flex items-center justify-center">
+                <img 
+                  src="/logo.png" 
+                  alt="Nexus Logo" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
               <span className="text-xs text-white/40">© 2026 Nexus Coding Club. All rights reserved.</span>
             </div>
             

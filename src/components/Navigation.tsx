@@ -38,10 +38,26 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, toggleTheme, onOpenDrawe
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'py-3 glass border-b border-white/10' : 'py-6 bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center gap-3 group cursor-pointer">
-          <div className="w-10 h-10 bg-nexus-indigo rounded-lg flex items-center justify-center text-white font-bold font-mono group-hover:shadow-[0_0_15px_rgba(99,102,241,0.5)] transition-all">NXS</div>
+        <a href="/" className="flex items-center gap-3 group cursor-pointer">
+            <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center group-hover:shadow-[0_0_15px_rgba(99,102,241,0.5)] transition-all">
+              <img 
+                src="/logo.png" 
+                alt="Nexus Logo" 
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const parent = target.parentElement;
+                  if (parent) {
+                    parent.classList.add('bg-nexus-indigo', 'text-white', 'font-bold', 'font-mono');
+                    parent.innerText = 'NXS';
+                  }
+                }}
+                referrerPolicy="no-referrer"
+              />
+            </div>
           <span className="font-mono font-bold text-white tracking-tighter hidden sm:block">Nexus Coding Club</span>
-        </div>
+        </a>
 
         <div className="flex items-center gap-4">
           <button 
@@ -122,10 +138,26 @@ export const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, onLoginClick, o
             className="fixed top-0 left-0 h-full w-full max-w-sm z-[70] bg-[#050a0f] border-r border-white/10 p-8 flex flex-col"
           >
             <div className="flex justify-between items-center mb-12">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-nexus-indigo rounded-lg flex items-center justify-center text-white font-bold font-mono">NXS</div>
+              <a href="/" onClick={onClose} className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">
+                  <img 
+                    src="/logo.png" 
+                    alt="Nexus Logo" 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.classList.add('bg-nexus-indigo', 'text-white', 'font-bold', 'font-mono');
+                        parent.innerText = 'NXS';
+                      }
+                    }}
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
                 <span className="font-mono font-bold text-white tracking-tighter">Nexus Club</span>
-              </div>
+              </a>
               <button onClick={onClose} className="p-2 rounded-full hover:bg-white/5 text-white/60">
                 <X size={24} />
               </button>

@@ -294,7 +294,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onClose })
       {/* Sidebar */}
       <div className="w-full md:w-72 bg-[#0a0f14] border-r border-white/5 flex flex-col p-6">
         <div className="flex items-center gap-3 mb-12">
-          <div className="w-10 h-10 bg-nexus-indigo rounded-lg flex items-center justify-center text-white font-bold font-mono">NXS</div>
+          <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">
+            <img 
+              src="/logo.png" 
+              alt="Nexus Logo" 
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const parent = target.parentElement;
+                if (parent) {
+                  parent.classList.add('bg-nexus-indigo', 'text-white', 'font-bold', 'font-mono');
+                  parent.innerText = 'NXS';
+                }
+              }}
+              referrerPolicy="no-referrer"
+            />
+          </div>
           <span className="font-mono font-bold text-white tracking-tighter">Nexus Coding Club</span>
         </div>
 
@@ -382,7 +398,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onClose })
               </div>
 
               <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-nexus-indigo rounded-xl flex items-center justify-center text-white font-bold font-mono text-2xl mb-6">NXS</div>
+                <div className="w-16 h-16 rounded-xl overflow-hidden flex items-center justify-center mb-6">
+                  <img 
+                    src="/logo.png" 
+                    alt="Nexus Logo" 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.classList.add('bg-nexus-indigo', 'text-white', 'font-bold', 'font-mono', 'text-2xl');
+                        parent.innerText = 'NXS';
+                      }
+                    }}
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
                 <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-nexus-indigo via-nexus-cyan to-nexus-violet bg-clip-text text-transparent mb-4">
                   CERTIFICATE OF ACHIEVEMENT
                 </h1>
