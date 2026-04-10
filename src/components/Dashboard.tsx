@@ -21,9 +21,10 @@ interface DashboardProps {
   user: User;
   onLogout: () => void;
   onClose: () => void;
+  isDark: boolean;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onClose }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onClose, isDark }) => {
   const [activeTab, setActiveTab] = useState('Overview');
   const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
 
@@ -36,15 +37,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onClose })
       case 'Overview':
         return (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-              <div>
-                <h2 className="text-3xl font-bold text-white">Welcome back, {user.fullName.split(' ')[0]}!</h2>
-                <p className="text-white/60">Here's what's happening in the club today.</p>
-              </div>
-              <div className="px-4 py-2 glass rounded-xl border-nexus-indigo/30">
-                <span className="text-nexus-cyan font-mono text-sm">ID: {user.id}</span>
-              </div>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+              <h2 className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-nexus-navy'}`}>Welcome back, {user.fullName.split(' ')[0]}!</h2>
+              <p className={isDark ? 'text-white/60' : 'text-nexus-navy/60'}>Here's what's happening in the club today.</p>
             </div>
+            <div className={`px-4 py-2 glass rounded-xl border-nexus-indigo/30`}>
+              <span className="text-nexus-cyan font-mono text-sm">ID: {user.id}</span>
+            </div>
+          </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
@@ -59,26 +60,26 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onClose })
                       <stat.icon size={20} />
                     </div>
                   </div>
-                  <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-                  <div className="text-sm text-white/40">{stat.label}</div>
+                  <div className={`text-2xl font-bold mb-1 ${isDark ? 'text-white' : 'text-nexus-navy'}`}>{stat.value}</div>
+                  <div className={`text-sm ${isDark ? 'text-white/40' : 'text-nexus-navy/40'}`}>{stat.label}</div>
                 </div>
               ))}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2 glass rounded-2xl p-6 border-white/5">
-                <h3 className="text-xl font-bold text-white mb-6">Recent Activity</h3>
+                <h3 className={`text-xl font-bold mb-6 ${isDark ? 'text-white' : 'text-nexus-navy'}`}>Recent Activity</h3>
                 <div className="space-y-4">
                   {activities.length > 0 ? (
                     activities.map((activity, i) => (
-                      <div key={i} className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
+                      <div key={i} className={`flex items-center gap-4 p-3 rounded-xl transition-colors ${isDark ? 'hover:bg-white/5' : 'hover:bg-nexus-navy/5'}`}>
                         <div className="w-2 h-2 rounded-full bg-nexus-indigo" />
-                        <span className="text-white/80 text-sm">{activity}</span>
-                        <span className="ml-auto text-xs text-white/20">Recent</span>
+                        <span className={`text-sm ${isDark ? 'text-white/80' : 'text-nexus-navy/80'}`}>{activity}</span>
+                        <span className={`ml-auto text-xs ${isDark ? 'text-white/20' : 'text-nexus-navy/20'}`}>Recent</span>
                       </div>
                     ))
                   ) : (
-                    <div className="flex flex-col items-center justify-center py-12 text-white/20">
+                    <div className={`flex flex-col items-center justify-center py-12 ${isDark ? 'text-white/20' : 'text-nexus-navy/20'}`}>
                       <Calendar size={48} className="mb-4 opacity-20" />
                       <p className="italic">(N/A) - No recent activities</p>
                     </div>
@@ -289,10 +290,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onClose })
       animate={{ x: 0 }}
       exit={{ x: '100%' }}
       transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-      className="fixed inset-0 z-[150] bg-nexus-navy overflow-hidden flex flex-col md:flex-row"
+      className={`fixed inset-0 z-[150] overflow-hidden flex flex-col md:flex-row ${isDark ? 'bg-nexus-navy' : 'bg-[#f0f6ff]'}`}
     >
       {/* Sidebar */}
-      <div className="w-full md:w-72 bg-[#0a0f14] border-r border-white/5 flex flex-col p-6">
+      <div className={`w-full md:w-72 border-r flex flex-col p-6 ${isDark ? 'bg-[#0a0f14] border-white/5' : 'bg-white border-nexus-navy/5'}`}>
         <div className="flex items-center gap-3 mb-12">
           <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">
             <img 
@@ -311,7 +312,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onClose })
               referrerPolicy="no-referrer"
             />
           </div>
-          <span className="font-mono font-bold text-white tracking-tighter">Nexus Coding Club</span>
+          <span className={`font-mono font-bold tracking-tighter ${isDark ? 'text-white' : 'text-nexus-navy'}`}>Nexus Coding Club</span>
         </div>
 
         <div className="flex items-center gap-4 p-4 glass rounded-2xl border-white/5 mb-8">
@@ -338,7 +339,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onClose })
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
                 activeTab === item.name 
                   ? 'bg-nexus-indigo text-white shadow-[0_0_15px_rgba(99,102,241,0.3)]' 
-                  : 'text-white/40 hover:text-white hover:bg-white/5'
+                  : `${isDark ? 'text-white/40 hover:text-white hover:bg-white/5' : 'text-nexus-navy/40 hover:text-nexus-navy hover:bg-nexus-navy/5'}`
               }`}
             >
               <item.icon size={18} />
@@ -351,14 +352,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onClose })
         <div className="mt-auto pt-6 space-y-2">
           <button 
             onClick={onClose}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white/40 hover:text-white hover:bg-white/5 transition-all"
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isDark ? 'text-white/40 hover:text-white hover:bg-white/5' : 'text-nexus-navy/40 hover:text-nexus-navy hover:bg-nexus-navy/5'}`}
           >
             <ArrowLeft size={18} />
             <span className="font-medium">Back to Site</span>
           </button>
           <button 
             onClick={onLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400/60 hover:text-red-400 hover:bg-red-400/10 transition-all"
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isDark ? 'text-red-400/60 hover:text-red-400 hover:bg-red-400/10' : 'text-red-600/60 hover:text-red-600 hover:bg-red-600/10'}`}
           >
             <LogOut size={18} />
             <span className="font-medium">Logout</span>

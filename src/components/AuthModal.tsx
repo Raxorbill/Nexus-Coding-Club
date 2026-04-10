@@ -17,9 +17,10 @@ interface AuthModalProps {
   onClose: () => void;
   onLogin: (user: User) => void;
   onRegister: (user: User) => void;
+  isDark: boolean;
 }
 
-export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, onRegister }) => {
+export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, onRegister, isDark }) => {
   const [view, setView] = useState<'login' | 'register' | 'forgot-password' | 'forgot-password-success'>('login');
   const [formData, setFormData] = useState({
     fullName: '',
@@ -177,25 +178,25 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            className="relative w-full max-w-md glass rounded-2xl p-8 shadow-2xl overflow-hidden"
+            className={`relative w-full max-w-md glass rounded-2xl p-8 shadow-2xl overflow-hidden ${isDark ? '' : 'bg-white'}`}
           >
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-nexus-indigo via-nexus-cyan to-nexus-violet" />
             
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 transition-colors"
+              className={`absolute top-4 right-4 p-2 rounded-full transition-colors ${isDark ? 'hover:bg-white/10 text-white/60' : 'hover:bg-nexus-navy/5 text-nexus-navy/60'}`}
             >
-              <X size={20} className="text-white/60" />
+              <X size={20} />
             </button>
 
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">
+              <h2 className={`text-3xl font-bold mb-2 ${isDark ? 'text-white' : 'text-nexus-navy'}`}>
                 {view === 'login' && 'Welcome Back'}
                 {view === 'register' && 'Join the Nexus'}
                 {view === 'forgot-password' && 'Reset Password'}
                 {view === 'forgot-password-success' && 'Check Your Email'}
               </h2>
-              <p className="text-white/60">
+              <p className={isDark ? 'text-white/60' : 'text-nexus-navy/60'}>
                 {view === 'login' && 'Enter your credentials to access your dashboard'}
                 {view === 'register' && 'Create an account to start your journey'}
                 {view === 'forgot-password' && 'Enter your email to receive a reset link'}
@@ -205,15 +206,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
 
             {view === 'forgot-password-success' ? (
               <div className="space-y-6">
-                <div className="bg-nexus-indigo/10 border border-nexus-indigo/20 rounded-xl p-6 text-center">
+                <div className={`rounded-xl p-6 text-center border ${isDark ? 'bg-nexus-indigo/10 border-nexus-indigo/20' : 'bg-nexus-indigo/5 border-nexus-indigo/10'}`}>
                   <Mail className="mx-auto text-nexus-indigo mb-4" size={48} />
-                  <p className="text-white/80 text-sm leading-relaxed">
+                  <p className={`text-sm leading-relaxed ${isDark ? 'text-white/80' : 'text-nexus-navy/80'}`}>
                     We’ve sent a password reset link to your email address. If you don’t see it in your inbox, please check your spam or junk folder. The link will expire after a limited time for your security.
                   </p>
                 </div>
                 <button
                   onClick={() => setView('login')}
-                  className="w-full bg-white/5 border border-white/10 text-white font-bold py-3 rounded-xl hover:bg-white/10 transition-all"
+                  className={`w-full border font-bold py-3 rounded-xl transition-all ${isDark ? 'bg-white/5 border-white/10 text-white hover:bg-white/10' : 'bg-nexus-navy/5 border-nexus-navy/10 text-nexus-navy hover:bg-nexus-navy/10'}`}
                 >
                   Back to Login
                 </button>
@@ -223,61 +224,61 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
                 {view === 'register' && (
                   <>
                     <div className="relative">
-                      <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
+                      <UserIcon className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? 'text-white/40' : 'text-nexus-navy/40'}`} size={18} />
                       <input
                         type="text"
                         placeholder="Full Name"
                         required
-                        className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white placeholder:text-white/20 focus:outline-none focus:border-nexus-indigo transition-colors"
+                        className={`w-full border rounded-xl py-3 pl-10 pr-4 transition-colors focus:outline-none focus:border-nexus-indigo ${isDark ? 'bg-white/5 border-white/10 text-white placeholder:text-white/20' : 'bg-nexus-navy/5 border-nexus-navy/10 text-nexus-navy placeholder:text-nexus-navy/20'}`}
                         value={formData.fullName}
                         onChange={e => setFormData({ ...formData, fullName: e.target.value })}
                       />
                     </div>
                     <div className="relative">
-                      <School className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
+                      <School className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? 'text-white/40' : 'text-nexus-navy/40'}`} size={18} />
                       <input
                         type="text"
                         placeholder="Institute"
                         required
-                        className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white placeholder:text-white/20 focus:outline-none focus:border-nexus-indigo transition-colors"
+                        className={`w-full border rounded-xl py-3 pl-10 pr-4 transition-colors focus:outline-none focus:border-nexus-indigo ${isDark ? 'bg-white/5 border-white/10 text-white placeholder:text-white/20' : 'bg-nexus-navy/5 border-nexus-navy/10 text-nexus-navy placeholder:text-nexus-navy/20'}`}
                         value={formData.institute}
                         onChange={e => setFormData({ ...formData, institute: e.target.value })}
                       />
                     </div>
                     <div className="relative">
-                      <Users className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
+                      <Users className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? 'text-white/40' : 'text-nexus-navy/40'}`} size={18} />
                       <select
-                        className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-10 text-white focus:outline-none focus:border-nexus-indigo transition-colors appearance-none cursor-pointer"
+                        className={`w-full border rounded-xl py-3 pl-10 pr-10 transition-colors focus:outline-none focus:border-nexus-indigo appearance-none cursor-pointer ${isDark ? 'bg-white/5 border-white/10 text-white' : 'bg-nexus-navy/5 border-nexus-navy/10 text-nexus-navy'}`}
                         value={formData.gender}
                         onChange={e => setFormData({ ...formData, gender: e.target.value })}
                       >
-                        <option value="Male" className="bg-nexus-navy">Male</option>
-                        <option value="Female" className="bg-nexus-navy">Female</option>
-                        <option value="Others" className="bg-nexus-navy">Others</option>
+                        <option value="Male" className={isDark ? 'bg-nexus-navy' : 'bg-white'}>Male</option>
+                        <option value="Female" className={isDark ? 'bg-nexus-navy' : 'bg-white'}>Female</option>
+                        <option value="Others" className={isDark ? 'bg-nexus-navy' : 'bg-white'}>Others</option>
                       </select>
-                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" size={18} />
+                      <ChevronDown className={`absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none ${isDark ? 'text-white/40' : 'text-nexus-navy/40'}`} size={18} />
                     </div>
                   </>
                 )}
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
+                  <Mail className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? 'text-white/40' : 'text-nexus-navy/40'}`} size={18} />
                   <input
                     type="email"
                     placeholder="Email Address"
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white placeholder:text-white/20 focus:outline-none focus:border-nexus-indigo transition-colors"
+                    className={`w-full border rounded-xl py-3 pl-10 pr-4 transition-colors focus:outline-none focus:border-nexus-indigo ${isDark ? 'bg-white/5 border-white/10 text-white placeholder:text-white/20' : 'bg-nexus-navy/5 border-nexus-navy/10 text-nexus-navy placeholder:text-nexus-navy/20'}`}
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                   />
                 </div>
                 {view !== 'forgot-password' && (
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
+                    <Lock className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? 'text-white/40' : 'text-nexus-navy/40'}`} size={18} />
                     <input
                       type="password"
                       placeholder="Password"
                       required
-                      className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white placeholder:text-white/20 focus:outline-none focus:border-nexus-indigo transition-colors"
+                      className={`w-full border rounded-xl py-3 pl-10 pr-4 transition-colors focus:outline-none focus:border-nexus-indigo ${isDark ? 'bg-white/5 border-white/10 text-white placeholder:text-white/20' : 'bg-nexus-navy/5 border-nexus-navy/10 text-nexus-navy placeholder:text-nexus-navy/20'}`}
                       value={formData.password}
                       onChange={e => setFormData({ ...formData, password: e.target.value })}
                     />
@@ -323,16 +324,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
             {view !== 'forgot-password-success' && (
               <>
                 <div className="mt-6 flex items-center gap-4">
-                  <div className="flex-1 h-px bg-white/10" />
-                  <span className="text-xs text-white/20 uppercase font-bold">Or continue with</span>
-                  <div className="flex-1 h-px bg-white/10" />
+                  <div className={`flex-1 h-px ${isDark ? 'bg-white/10' : 'bg-nexus-navy/10'}`} />
+                  <span className={`text-xs uppercase font-bold ${isDark ? 'text-white/20' : 'text-nexus-navy/20'}`}>Or continue with</span>
+                  <div className={`flex-1 h-px ${isDark ? 'bg-white/10' : 'bg-nexus-navy/10'}`} />
                 </div>
 
                 <div className="mt-6 space-y-3">
                   <button
                     onClick={handleGoogleSignIn}
                     disabled={isLoading}
-                    className="w-full bg-white/5 border border-white/10 text-white font-medium py-3 rounded-xl hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50"
+                    className={`w-full border font-medium py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 ${isDark ? 'bg-white/5 border-white/10 text-white hover:bg-white/10' : 'bg-nexus-navy/5 border-nexus-navy/10 text-nexus-navy hover:bg-nexus-navy/10'}`}
                   >
                     <svg className="w-5 h-5" viewBox="0 0 24 24">
                       <path
@@ -357,7 +358,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
                   <button
                     onClick={handleFacebookSignIn}
                     disabled={isLoading}
-                    className="w-full bg-[#1877F2]/10 border border-[#1877F2]/30 text-white font-medium py-3 rounded-xl hover:bg-[#1877F2]/20 transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50"
+                    className={`w-full border font-medium py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 ${isDark ? 'bg-[#1877F2]/10 border-[#1877F2]/30 text-white hover:bg-[#1877F2]/20' : 'bg-[#1877F2]/5 border-[#1877F2]/20 text-nexus-navy hover:bg-[#1877F2]/10'}`}
                   >
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="#1877F2">
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -369,7 +370,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
                 <div className="mt-6 text-center">
                   <button
                     onClick={() => setView(view === 'login' ? 'register' : 'login')}
-                    className="text-white/60 hover:text-nexus-cyan transition-colors text-sm"
+                    className={`transition-colors text-sm ${isDark ? 'text-white/60 hover:text-nexus-cyan' : 'text-nexus-navy/60 hover:text-nexus-indigo'}`}
                   >
                     {view === 'login' ? "Don't have an account? Register" : "Already have an account? Login"}
                   </button>

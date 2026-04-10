@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-export const MatrixRain: React.FC<{ color?: string }> = ({ color = '#6366f1' }) => {
+export const MatrixRain: React.FC<{ color?: string; isDark?: boolean }> = ({ color = '#6366f1', isDark = true }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export const MatrixRain: React.FC<{ color?: string }> = ({ color = '#6366f1' }) 
     const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     const draw = () => {
-      ctx.fillStyle = 'rgba(5, 10, 15, 0.1)';
+      ctx.fillStyle = isDark ? 'rgba(5, 10, 15, 0.1)' : 'rgba(240, 246, 255, 0.1)';
       ctx.fillRect(0, 0, width, height);
 
       ctx.fillStyle = color;

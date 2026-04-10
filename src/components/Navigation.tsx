@@ -56,13 +56,13 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, toggleTheme, onOpenDrawe
                 referrerPolicy="no-referrer"
               />
             </div>
-          <span className="font-mono font-bold text-white tracking-tighter hidden sm:block">Nexus Coding Club</span>
+          <span className={`font-mono font-bold tracking-tighter hidden sm:block ${isDark ? 'text-white' : 'text-nexus-navy'}`}>Nexus Coding Club</span>
         </a>
 
         <div className="flex items-center gap-4">
           <button 
             onClick={toggleTheme}
-            className="p-2 rounded-full glass hover:bg-white/10 transition-colors text-white"
+            className={`p-2 rounded-full glass transition-colors ${isDark ? 'hover:bg-white/10 text-white' : 'hover:bg-nexus-indigo/10 text-nexus-navy'}`}
           >
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </button>
@@ -77,7 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, toggleTheme, onOpenDrawe
           ) : (
             <button 
               onClick={onLoginClick}
-              className="hidden md:flex items-center gap-2 px-5 py-2 rounded-full border border-nexus-indigo text-white font-medium text-sm hover:bg-nexus-indigo/10 transition-all"
+              className={`hidden md:flex items-center gap-2 px-5 py-2 rounded-full border border-nexus-indigo font-medium text-sm transition-all ${isDark ? 'text-white hover:bg-nexus-indigo/10' : 'text-nexus-navy hover:bg-nexus-indigo/5'}`}
             >
               Login
             </button>
@@ -85,7 +85,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, toggleTheme, onOpenDrawe
 
           <button 
             onClick={onOpenDrawer}
-            className="p-2 rounded-full glass hover:bg-white/10 transition-colors text-white"
+            className={`p-2 rounded-full glass transition-colors ${isDark ? 'hover:bg-white/10 text-white' : 'hover:bg-nexus-indigo/10 text-nexus-navy'}`}
           >
             <MoreVertical size={20} />
           </button>
@@ -102,9 +102,10 @@ interface DrawerProps {
   onRegisterClick: () => void;
   isLoggedIn: boolean;
   onDashboardClick: () => void;
+  isDark: boolean;
 }
 
-export const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, onLoginClick, onRegisterClick, isLoggedIn, onDashboardClick }) => {
+export const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, onLoginClick, onRegisterClick, isLoggedIn, onDashboardClick, isDark }) => {
   const navLinks = [
     { name: 'About Us', icon: Info, href: '#about' },
     { name: 'Events', icon: Calendar, href: '#events' },
@@ -135,7 +136,7 @@ export const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, onLoginClick, o
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 left-0 h-full w-full max-w-sm z-[70] bg-[#050a0f] border-r border-white/10 p-8 flex flex-col"
+            className={`fixed top-0 left-0 h-full w-full max-w-sm z-[70] border-r p-8 flex flex-col ${isDark ? 'bg-[#050a0f] border-white/10' : 'bg-white border-nexus-navy/10'}`}
           >
             <div className="flex justify-between items-center mb-12">
               <a href="/" onClick={onClose} className="flex items-center gap-3">
@@ -156,22 +157,22 @@ export const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, onLoginClick, o
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <span className="font-mono font-bold text-white tracking-tighter">Nexus Club</span>
+                <span className={`font-mono font-bold tracking-tighter ${isDark ? 'text-white' : 'text-nexus-navy'}`}>Nexus Club</span>
               </a>
-              <button onClick={onClose} className="p-2 rounded-full hover:bg-white/5 text-white/60">
+              <button onClick={onClose} className={`p-2 rounded-full transition-colors ${isDark ? 'hover:bg-white/5 text-white/60' : 'hover:bg-nexus-navy/5 text-nexus-navy/60'}`}>
                 <X size={24} />
               </button>
             </div>
 
             <nav className="space-y-6 flex-1 overflow-y-auto pr-4">
               <div className="space-y-2">
-                <p className="text-[10px] text-white/20 uppercase tracking-widest font-bold mb-4">Main Navigation</p>
+                <p className={`text-[10px] uppercase tracking-widest font-bold mb-4 ${isDark ? 'text-white/20' : 'text-nexus-navy/20'}`}>Main Navigation</p>
                 {navLinks.map((link) => (
                   <a 
                     key={link.name} 
                     href={link.href} 
                     onClick={onClose}
-                    className="flex items-center gap-4 px-4 py-3 rounded-xl text-white/60 hover:text-white hover:bg-white/5 transition-all group"
+                    className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all group ${isDark ? 'text-white/60 hover:text-white hover:bg-white/5' : 'text-nexus-navy/60 hover:text-nexus-navy hover:bg-nexus-navy/5'}`}
                   >
                     <link.icon size={20} className="group-hover:text-nexus-indigo transition-colors" />
                     <span className="font-medium">{link.name}</span>
@@ -181,13 +182,13 @@ export const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, onLoginClick, o
               </div>
 
               <div className="space-y-2">
-                <p className="text-[10px] text-white/20 uppercase tracking-widest font-bold mb-4">Members Group</p>
+                <p className={`text-[10px] uppercase tracking-widest font-bold mb-4 ${isDark ? 'text-white/20' : 'text-nexus-navy/20'}`}>Members Group</p>
                 {teamLinks.map((link) => (
                   <a 
                     key={link.name} 
                     href={link.href} 
                     onClick={onClose}
-                    className="flex items-center gap-4 px-4 py-3 rounded-xl text-white/60 hover:text-white hover:bg-white/5 transition-all group"
+                    className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all group ${isDark ? 'text-white/60 hover:text-white hover:bg-white/5' : 'text-nexus-navy/60 hover:text-nexus-navy hover:bg-nexus-navy/5'}`}
                   >
                     <link.icon size={20} className="group-hover:text-nexus-cyan transition-colors" />
                     <span className="font-medium">{link.name}</span>
@@ -197,7 +198,7 @@ export const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, onLoginClick, o
               </div>
             </nav>
 
-            <div className="mt-8 pt-8 border-t border-white/10 grid grid-cols-2 gap-4">
+            <div className={`mt-8 pt-8 border-t grid grid-cols-2 gap-4 ${isDark ? 'border-white/10' : 'border-nexus-navy/10'}`}>
               {isLoggedIn ? (
                 <button 
                   onClick={() => { onDashboardClick(); onClose(); }}
@@ -209,7 +210,7 @@ export const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, onLoginClick, o
                 <>
                   <button 
                     onClick={() => { onLoginClick(); onClose(); }}
-                    className="py-3 rounded-xl border border-nexus-indigo text-white font-bold text-sm hover:bg-nexus-indigo/10 transition-colors"
+                    className={`py-3 rounded-xl border border-nexus-indigo font-bold text-sm transition-colors ${isDark ? 'text-white hover:bg-nexus-indigo/10' : 'text-nexus-navy hover:bg-nexus-indigo/5'}`}
                   >
                     Login
                   </button>
