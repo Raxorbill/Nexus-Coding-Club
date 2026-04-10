@@ -23,6 +23,7 @@ import { Terminal } from './components/Terminal';
 import { Navbar, Drawer } from './components/Navigation';
 import { AuthModal } from './components/AuthModal';
 import { Dashboard } from './components/Dashboard';
+import { AmbassadorsPage } from './components/AmbassadorsPage';
 import { HeroSkeleton } from './components/Skeleton';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { User } from './types';
@@ -57,6 +58,7 @@ export default function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [currentUser, setCurrentUser] = useLocalStorage<User | null>('nexus_current_user', null);
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
+  const [isAmbassadorsPageOpen, setIsAmbassadorsPageOpen] = useState(false);
   const [registeredMembers, setRegisteredMembers] = useState<User[]>([]);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
 
@@ -96,6 +98,7 @@ export default function App() {
         setIsDrawerOpen(false);
         setIsAuthModalOpen(false);
         setIsDashboardOpen(false);
+        setIsAmbassadorsPageOpen(false);
       }
     };
     window.addEventListener('keydown', handleEsc);
@@ -167,6 +170,11 @@ export default function App() {
         onRegisterClick={() => setIsAuthModalOpen(true)}
         isLoggedIn={!!currentUser}
         onDashboardClick={() => setIsDashboardOpen(true)}
+      />
+
+      <AmbassadorsPage 
+        isOpen={isAmbassadorsPageOpen} 
+        onClose={() => setIsAmbassadorsPageOpen(false)} 
       />
 
       <AuthModal 
@@ -410,6 +418,86 @@ export default function App() {
                   <div className="text-[10px] text-white/20 uppercase">Mentor</div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          <div className="mb-24">
+            <h3 className="text-xl font-bold mb-12 text-center text-white/40 uppercase tracking-[0.3em]">Campus Ambassadors</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+              {[
+                {
+                  name: "Ishrat Jahan Rupsha",
+                  institute: "BGC Trust University",
+                  bio: "Passionate about tech and community building. Representing Nexus at BGC Trust University.",
+                  email: "rupsha619@gmail.com",
+                  image: "https://lh3.googleusercontent.com/d/1KyB6HFh-jpI_S0oEeFME2H0veXjUriIi"
+                },
+                {
+                  name: "MD. Mahadi Hasan Fahim",
+                  institute: "International Islamic University Chittagong",
+                  bio: "Competitive programmer and tech enthusiast. Leading the Nexus wave at IIUC.",
+                  email: "immahadihasanfahim@gmail.com",
+                  image: "https://lh3.googleusercontent.com/d/1p6ExAOFusUuyKRgMnOl1fpivqjbwh0nD"
+                },
+                {
+                  name: "Aksa Arshad",
+                  institute: "Al hidaayah International school",
+                  bio: "Community lead and tech enthusiast. Bringing creative minds together at Al hidaayah International school.",
+                  email: "aksaarshad45@gmail.com",
+                  image: "https://lh3.googleusercontent.com/d/1eNeRP7fvEwD2gmCBVOlo7pTWA7aZgO52"
+                }
+              ].map((ambassador, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="group relative aspect-square rounded-2xl overflow-hidden glass border-white/5"
+                >
+                  <img 
+                    src={ambassador.image} 
+                    alt={ambassador.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-nexus-navy via-nexus-navy/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 text-left">
+                    <motion.div
+                      initial={{ y: 10, opacity: 0 }}
+                      whileHover={{ y: 0, opacity: 1 }}
+                      className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500"
+                    >
+                      <h4 className="text-lg font-bold text-white mb-0.5 group-hover:text-nexus-indigo transition-colors">{ambassador.name}</h4>
+                      <p className="text-nexus-cyan font-mono text-[10px] mb-2 uppercase tracking-wider font-bold">{ambassador.institute}</p>
+                      <p className="text-white/70 text-[10px] leading-relaxed line-clamp-2 mb-2">{ambassador.bio}</p>
+                      {'email' in ambassador && (
+                        <p className="text-nexus-indigo text-[9px] font-mono">{ambassador.email}</p>
+                      )}
+                    </motion.div>
+                  </div>
+                  {/* Default indicator */}
+                  <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent group-hover:opacity-0 transition-opacity">
+                    <p className="text-white font-bold text-center text-xs">{ambassador.name}</p>
+                  </div>
+                </motion.div>
+              ))}
+
+              {/* See More Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                onClick={() => setIsAmbassadorsPageOpen(true)}
+                className="group relative aspect-square rounded-2xl overflow-hidden glass border-nexus-indigo/20 flex flex-col items-center justify-center p-6 text-center cursor-pointer hover:border-nexus-indigo/50 transition-all bg-nexus-indigo/5"
+              >
+                <div className="w-12 h-12 rounded-xl bg-nexus-indigo/10 flex items-center justify-center text-nexus-indigo mb-4 group-hover:scale-110 transition-transform group-hover:shadow-[0_0_20px_rgba(99,102,241,0.2)] border border-nexus-indigo/20">
+                  <ArrowRight size={24} />
+                </div>
+                <h4 className="text-lg font-bold text-white mb-1">See More</h4>
+                <p className="text-white/40 text-[10px] leading-tight">Explore our full network of ambassadors.</p>
+                <div className="absolute inset-0 bg-nexus-indigo/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </motion.div>
             </div>
           </div>
 
